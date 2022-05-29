@@ -1,0 +1,137 @@
+<%- include("./../inc/header.ejs") %>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="mt-4">
+                        <% if(data == []){ %>
+                            Crear Consultorio
+                        <% } else { %>
+                            Editar Consultorio
+                        <% } %>
+                    </h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/admin/consultingRoom">Listado de Consultorios</a></li>
+                        <% if(data == []){ %>
+                            <li class="breadcrumb-item active">Crear Consultorio</li>
+                        <% } else { %>
+                            <li class="breadcrumb-item active">Editar Consultorio</li>
+                        <% } %>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form action="" method="POST"enctype="">
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Nombre:</label>
+                                        <input class="form-control py-4 col-5" name="nombre" type="text" placeholder="" 
+                                        value="<%= data.nombre %> "/>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Alias:</label>
+                                        <input class="form-control py-4 col-5" name="alias" type="text" placeholder="" 
+                                        value="<%= data.alias %> "/>
+                                    </div> 
+                                </div>
+                                <div class="callout callout-info">
+                                    <p>Dirección</p>
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Calle:</label>
+                                        <input class="form-control py-4 col-5" name="calle" type="text" placeholder="" 
+                                        value="<%= data.calle %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Número:</label>
+                                        <input class="form-control py-4 col-5" name="numero" type="text" placeholder="" 
+                                        value="<%= data.numero %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Barrio:</label>
+                                        <input class="form-control py-4 col-5" name="barrio" type="text" placeholder="" 
+                                        value="<%= data.barrio %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Localidad:</label>
+                                        <input class="form-control py-4 col-5" name="localidad" type="text" placeholder="" 
+                                        value="<%= data.localidad %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Provincia:</label>
+                                        <input class="form-control py-4 col-5" name="provincia" type="text" placeholder="" 
+                                        value="<%= data.provincia %> "/>
+                                    </div> 
+                                </div>
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Teléfono:</label>
+                                        <input class="form-control py-4 col-5" name="telefono" type="text" placeholder="" 
+                                        value="<%= data.telefono %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Email:</label>
+                                        <input class="form-control py-4 col-5" name="email" type="text" placeholder="" 
+                                        value="<%= data.email %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1" >Estado:</label>
+                                            <select name="estado" id="" class="custom-select">
+                                                <% if(data.estado){ %>
+                                                    <option selected="selected" value="1">Activo</option>
+                                                    <option value="0">Desactivado</option>
+                                                <% } else { %>
+                                                    <option selected="selected" value="0">Desactivado</option>
+                                                    <option value="1">Activado</option>
+                                                <% } %>
+                                            </select>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1" >Tipo de atención:</label>
+                                            <select name="tipoDeConsulta" id="" class="custom-select">
+                                                <% if(data.estado){ %>
+                                                    <option selected="selected" value="1">Presencial</option>
+                                                    <option value="2">Virtual</option>
+                                                <% } else { %>
+                                                    <option selected="selected" value="2">Virtual</option>
+                                                    <option value="1">Presencial</option>
+                                                <% } %>
+                                            </select>
+                                    </div> 
+                                    <div class="form-group">
+                                        <input type="hidden" name="fechaCreacion" type="text" 
+                                            value= <% if(data == []){ let fecha = new Date(); let mes = fecha.getMonth(); mes =+ mes+1; %>
+                                                "<%=  fecha.getFullYear() +"-"+ mes +"-"+ fecha.getDate() +" "+ fecha.getHours() +":"+ fecha.getMinutes() +":"+ fecha.getSeconds() %>"
+                                            <% } else { %>
+                                                <%= data.fechaCreacion %>
+                                            <% } %> 
+                                        />
+                                    </div> 
+                                    <div class="form-group">
+                                        <input type="hidden" name="fechaActualizacion" type="text" 
+                                            value= <%  let fecha = new Date(); let mes = fecha.getMonth(); mes =+ mes+1; %>
+                                            "<%=  fecha.getFullYear() +"-"+ mes +"-"+ fecha.getDate() +" "+ fecha.getHours() +":"+ fecha.getMinutes() +":"+ fecha.getSeconds() %>"
+                                        />
+                                    </div> 
+                               
+                                    <!-- <%=  fecha.toLocaleDateString() %> -->
+    
+                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <% if(data == []){ %>
+                                            <input type="submit"  value ="Agregar Consultorio" class="btn btn-outline-primary" >
+                                        <% } else { %>
+                                            <input type="submit"  value ="Editar Consultorio" class="btn btn-outline-primary" >
+                                        <% } %>
+                                        <a type="button" class="btn btn-outline-primary" href="/admin/consultingRoom">Cancelar</a>
+                                    </div>
+                                </div>    
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    
+<%- include("./../inc/footer.ejs") %>
