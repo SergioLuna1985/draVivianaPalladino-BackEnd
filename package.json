@@ -1,0 +1,36 @@
+{
+  "name": "lupercalia",
+  "version": "1.0.0",
+  "description": "BackEnd con Node (express, sequelize) y MySql para aplicación web para la marca Lupercalia",
+  "main": "api.js",
+  "scripts": {
+    "devApi": "nodemon api.js",
+    "devAdmin": "nodemon admin.js",
+    "start": "node api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergioLuna1985/Lupercalia-BackEnd.git"
+  },
+  "author": "Sergio Luna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SergioLuna1985/Lupercalia-BackEnd/issues"
+  },
+  "homepage": "https://github.com/SergioLuna1985/Lupercalia-BackEnd#readme",
+  "dependencies": {
+    "body-parser": "1.20.0",
+    "config": "3.3.7",
+    "connect-flash": "0.1.1",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "ejs": "3.1.6",
+    "express": "4.17.3",
+    "express-fileupload": "1.3.1",
+    "express-session": "1.17.2",
+    "mysql2": "2.3.3",
+    "nodemon": "2.0.15",
+    "sequelize": "6.19.0"
+  }
+}

@@ -1,0 +1,156 @@
+<%- include("./../inc/header.ejs") %>
+
+<div class="content-wrapper" >
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="mt-4">
+                        <% if(calendar == []){ %>
+                            Crear Calendario
+                        <% } else { %>
+                            Editar Calendario
+                        <% } %>
+                    </h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/admin/calendars">Listado de Calendarios</a></li>
+                        <% if(calendar == []){ %>
+                            <li class="breadcrumb-item active">Crear Calendario</li>
+                        <% } else { %>
+                            <li class="breadcrumb-item active">Editar Calendario</li>
+                        <% } %>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form action="" method="POST"enctype="multipart/form-data">
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Nombre del calendario:</label>
+                                        <input class="form-control py-4 col-5" name="nombre" type="text" placeholder="" 
+                                        value="<%= calendar.nombre %> "/>
+                                    </div>  
+
+                                    <div class="form-group">
+                                        <label class="small mb-1" >Tipo de atención:</label>
+                                            <select name="tipodeconsulta" id="tipo" class="custom-select" onchange="showConsultingRoom(this)">
+                                                <% if(calendar.tipodeconsulta == 1){ %>
+                                                    <option selected="selected" value="1">Presencial</option>
+                                                    <option value="2">Virtual</option>
+                                                <% } else { %>
+                                                    <option selected="selected" value="2">Virtual</option>
+                                                    <option  value="1">Presencial</option>
+                                                <% } %>
+                                            </select>
+                                    </div> 
+                                    
+                                    <script>
+                                        function showConsultingRoom(select){ 
+                                            if(select.value == 1){
+                                                document.getElementById("consultingRoom").style = 'display: contents';
+                                            
+                                            }else{
+                                                document.getElementById("consultingRoom").style = 'display: none';
+                                               
+                                            }
+                                        }
+                                    </script>   
+
+                                    <div id="consultingRoom">
+                                        <div class="form-group"  >
+                                            <label class="small mb-1" >Consultorio:</label>
+                                            <select name="Consultorio" class="custom-select">
+                                                <% if (consultingRooms.length > 0){
+                                                    consultingRooms.forEach((consultingRoom) => {
+                                                        if(calendar.nombreConsultorio && consultingRoom.id == calendar.nombreConsultorio){%>
+                                                            <option selected="selected" value="<%=consultingRooms.id%>"><%=consultingRoom.nombre%></option>
+                                                        <% }else{ %>
+                                                            <option value="<%=consultingRoom.id%>"><%=consultingRoom.nombre%></option>
+                                                    <%  }
+                                                    });
+                                                }%>
+                                            </select>
+                                        </div> 
+
+                                        <div>
+                                            <a type="button" class="btn btn-outline-primary" href="/admin/products">Agregar Consultorio</a>
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                    <div>
+                                        <div class="form-group"  >
+                                            <label class="small mb-1" >Profesional:</label>
+                                            <select name="Consultorio" class="custom-select">
+                                                <% if (professionals.length > 0){
+                                                    professionals.forEach((professional) => {
+                                                        if(calendars.idProfesional && professional.id == data.idProfessional){%>
+                                                            <option selected="selected" value="<%=professional.id%>"><%=professional.nombre%></option>
+                                                        <% }else{ %>
+                                                            <option value="<%=professional.id%>"><%=professional.nombre%></option>
+                                                    <%  }
+                                                    });
+                                                }%>
+                                            </select>
+                                        </div> 
+
+                                        <div>
+                                            <a type="button" class="btn btn-outline-primary" href="/admin/professional">Agregar Profesional</a>
+                                        </div>
+                                    </div>
+
+            
+                                </div>
+                                <div class="callout callout-info">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title p-3">Periodo</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div style="display: flex;"></div>
+                                                    <div style="flex-direction: ;">
+                                                        <label class="small mb-1" >Inicio:</label>
+                                                        <input class="form-control py-4 col-3" name="precio" type="date" placeholder=""value="<%=  %>"  />
+                                                    </div>
+                                                    <div>
+                                                        <label class="small mb-1" >Fin:</label>
+                                                        <input class="form-control py-4 col-3" name="precio" type="date" placeholder=""value="<%=  %>" style="display: ;"/> 
+                                                    </div>
+                                                </div> 
+                                            </div>  
+                                            <div class="form-group">
+                                                <label class="small mb-1" >Stock:</label>
+                                                <input class="form-control py-4 col-1" name="stock" type="text" placeholder="" 
+                                                value="<%=  %>"/>
+                                            </div>  
+                                            <div class="form-group">
+                                                <label class="small mb-1" >Bonificación:</label>
+                                                <input class="form-control py-4 col-1" name="bonificacion" type="text" placeholder="" 
+                                                value="<%=  %>"/>
+                                            </div> 
+                                        </div>
+                                         
+                                    </div>
+                                </div>
+                                
+                                
+    
+                                <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <% if(calendar == []){ %>
+                                        <input type="submit"  value ="Agregar Producto" class="btn btn-primary" >
+                                    <% } else { %>
+                                        <input type="submit"  value ="Editar Producto" class="btn btn-primary" >
+                                    <% } %>
+                                    <a type="button" class="btn btn-primary" href="/admin/products">Cancelar</a>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    
+<%- include("./../inc/footer.ejs") %>

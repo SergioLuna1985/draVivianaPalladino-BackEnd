@@ -1,0 +1,120 @@
+<%- include("./../inc/header.ejs") %>
+
+
+<div class="content-wrapper">
+    
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+        <h1 class="mt-4">Listado de consultorios</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin">Inicio</a></li>
+                <li class="breadcrumb-item active">Consultorios</li>
+            </ol>
+            <% if(message.length > 0){
+                message.forEach((msg)=>{%>
+                     <%=msg%>
+                <%});
+             }%>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <a type="button" class="btn btn-outline-info" href="/admin/consultingRoom/add">Agregar consultorio</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Alias</th>
+                                    <th>Dirección</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Tipo de atención</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Actualización</th>
+                                    <th>Fecha de creación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% 
+                                if (consultingRooms.length > 0){
+                                    consultingRooms.forEach((consultingRoom) => {  %> 
+                                        
+                                        <tr>
+                                            <td><%=consultingRoom.nombre%></td>
+                                            <td><%=consultingRoom.alias%></td>
+                                            <td><%=consultingRoom.calle +" "+ consultingRoom.numero +" "+ consultingRoom.barrio  +" "+ consultingRoom.localidad +" "+ consultingRoom.provincia%></td>
+                                            <td><%=consultingRoom.telefono%></td>
+                                            <td><%=consultingRoom.email%></td>
+                                            <td><%=consultingRoom.tipoDeConsulta%></td>
+                                            <td><%=consultingRoom.estado%></td>
+                                            <td><%
+                                                var fecha = new Date(consultingRoom.fechaActualizacion);
+                                                var options = { year: 'numeric', month: 'long', day: 'numeric' }; %>
+                                                <small><%=fecha.toLocaleDateString("es-ES", options) +" a las "+ fecha.getHours() +":"+ fecha.getMinutes() +":"+ fecha.getSeconds() %></small>
+                                            </td>
+                                            <td><%
+                                                var fecha = new Date(consultingRoom.fechaCreacion);
+                                                var options = { year: 'numeric', month: 'long', day: 'numeric' }; %>
+                                                <small><%=fecha.toLocaleDateString("es-ES", options) %></small>
+                                            </td>
+                                            <td>
+                                                <div style="display: flex;">
+                                                    <a style="display: inline-flex;" class="btn btn-outline-warning"  href="/admin/consultingRoom/edit/<%=consultingRoom.id%>" ><i style="padding-top: 4px" class="fas fa-pen"></i></a> 
+                                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal-danger" onclick="recuperarId(<%=consultingRoom.id%>)" value="<%=consultingRoom.id%>"><i class="fas fa-trash"></i></button>
+                                                </div>
+                                            </td> 
+                                        </tr>
+                                        
+                                        <script>
+                                            function recuperarId(id){ 
+                                                document.getElementById("deleteId").href = `/admin/consultingRoom/del/${id}` ;
+                                            }
+                                        </script>   
+
+                                        <div class="modal fade" id="modal-danger">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-danger">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Cuidado</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Si elimina el consultorio será borrado de manera perpetua de la base de datos sin posibilidad de recuperar la información. 
+                                                            A veces es buena práctica solo desactivar el consultorio.&hellip;</p>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                                                        <a id="deleteId" class="btn btn-outline-light" href="" >Eliminar Consultorio</a> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%});
+                                    }%>
+                                    
+                            </tbody>
+                            
+                        </table>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+      </div>
+      
+</section>
+
+    
+</div>
+  
+
+<%- include("./../inc/footer.ejs") %>

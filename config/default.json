@@ -1,0 +1,16 @@
+{
+    "Api":{
+        "port": 6000
+    },
+    "Admin":{
+        "port": 7000
+    },
+    "DB":{
+        "ip": "localhost",
+        "type": "mysql",
+        "name": "viviana",
+        "user": "root",
+        "pass": ""
+    }
+
+}

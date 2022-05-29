@@ -1,0 +1,89 @@
+<%- include("./../inc/header.ejs") %>
+
+
+<div class="content-wrapper">
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="mt-4">Listado de calendarios</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/admin">Inicio</a></li>
+                        <li class="breadcrumb-item active">Calendarios</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+                <div class="row">
+
+                    <% 
+                    if (calendars.length > 0){
+                        calendars.forEach((calendar) => { 
+                    %> 
+            
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    <%= calendar.nombreConsultorio %>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b> <strong> <%= calendar.nombreCalendario %>  </strong></b></h2>
+                                            <p class="text-muted text-sm"><b>Especialidades: </b> <%= calendar.especialidadConsultorio %> </p>
+                                            <p class="text-muted text-sm"><b>Profesionales: </b><%= calendar.nombreProfesional %> <%= calendar.apellidoProfesional %></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                                                    Dirección: <%=calendar.calleConsultorio%> <%=calendar.numeroDeCalleConsultorio%> <%=calendar.barrioConsultorio%> <%=calendar.localidadConsultorio%> <%=calendar.provinciaConsultorio%></li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Teléfono : <%=calendar.telefonoConsultorio%></li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="/admin/calendars/edit/<%=calendar.id%>" class="btn btn-sm btn-outline-primary">
+                                            Administrar calendario
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <% });}
+                    %>
+            
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <nav aria-label="Contacts Page Navigation">
+                    <ul class="pagination justify-content-center m-0">
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+    
+  
+
+    
+</div>
+  
+
+<%- include("./../inc/footer.ejs") %>
