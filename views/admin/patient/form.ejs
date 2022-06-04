@@ -1,0 +1,77 @@
+<%- include("./../inc/header.ejs") %>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="mt-4">
+                        <% if(patient == []){ %>
+                            Crear Paciente
+                        <% } else { %>
+                            Editar Paciente
+                        <% } %>
+                    </h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/admin/patient">Listado de Pacientes</a></li>
+                        <% if(patient == []){ %>
+                            <li class="breadcrumb-item active">Crear Paciente</li>
+                        <% } else { %>
+                            <li class="breadcrumb-item active">Editar Paciente</li>
+                        <% } %>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form action="" method="POST"enctype="">
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Nombre:</label>
+                                        <input class="form-control py-4 col-5" name="nombre" type="text" placeholder="" 
+                                        value="<%= patient.nombre %> "/>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Apellido:</label>
+                                        <input class="form-control py-4 col-5" name="apellido" type="text" placeholder="" 
+                                        value="<%= patient.apellido %> "/>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="small mb-1"  >Dni:</label>
+                                        <input class="form-control py-4 col-5" name="dni" type="text" placeholder="" 
+                                        value="<%= patient.dni %> "/>
+                                    </div> 
+                               
+                                    <div class="form-group">
+                                        <input type="hidden" name="fechaCreacion" type="text" 
+                                            value= <% if(patient == []){ let fecha = new Date(); let mes = fecha.getMonth(); mes =+ mes+1; %>
+                                                "<%=  fecha.getFullYear() +"-"+ mes +"-"+ fecha.getDate() +" "+ fecha.getHours() +":"+ fecha.getMinutes() +":"+ fecha.getSeconds() %>"
+                                            <% } else { %>
+                                                <%= patient.fechaCreacion %>
+                                            <% } %> 
+                                        />
+                                    </div> 
+                                    <div class="form-group">
+                                        <input type="hidden" name="fechaActualizacion" type="text" 
+                                            value= <%  let fecha = new Date(); let mes = fecha.getMonth(); mes =+ mes+1; %>
+                                            "<%=  fecha.getFullYear() +"-"+ mes +"-"+ fecha.getDate() +" "+ fecha.getHours() +":"+ fecha.getMinutes() +":"+ fecha.getSeconds() %>"
+                                        />
+                                    </div> 
+    
+                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <% if(patient == []){ %>
+                                            <input type="submit"  value ="Agregar Paciente" class="btn btn-outline-primary" >
+                                        <% } else { %>
+                                            <input type="submit"  value ="Editar Paciente" class="btn btn-outline-primary" >
+                                        <% } %>
+                                        <a type="button" class="btn btn-outline-primary" href="/admin/patient">Cancelar</a>
+                                    </div>
+                                </div>    
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    
+<%- include("./../inc/footer.ejs") %>
